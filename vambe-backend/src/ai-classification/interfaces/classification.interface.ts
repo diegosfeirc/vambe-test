@@ -46,6 +46,10 @@ export enum Urgency {
 export interface ClientClassification {
   clientName: string;
   email: string;
+  phone?: string;
+  meetingDate?: string;
+  assignedSalesperson?: string;
+  isClosed?: boolean;
   industry: IndustryVertical;
   leadSource: LeadSource;
   interactionVolume: InteractionVolume;

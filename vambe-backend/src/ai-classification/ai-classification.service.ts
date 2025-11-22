@@ -15,6 +15,10 @@ import {
 interface AIClassificationResponse {
   clientName: string;
   email: string;
+  phone: string;
+  meetingDate: string;
+  assignedSalesperson: string;
+  isClosed: boolean;
   industry: string;
   leadSource: string;
   interactionVolume: string;
@@ -37,7 +41,7 @@ export class AiClassificationService {
     }
     this.genAI = new GoogleGenerativeAI(apiKey);
     this.model = this.genAI.getGenerativeModel({
-      model: 'gemini-2.0-flash-lite',
+      model: 'gemini-2.5-flash-lite',
       generationConfig: {
         temperature: 0.1, // Baja temperatura para consistencia
       },
@@ -53,16 +57,12 @@ export class AiClassificationService {
 
     try {
       const prompt = this.buildClassificationPrompt(clients);
-      const classifications = await this.callGemini(prompt);
+      const classifications = await this.callGemini(prompt, clients);
       const processingTime = Date.now() - startTime;
 
       this.logger.log(
         `Classification completed in ${processingTime}ms for ${classifications.length} clients`,
       );
-
-      console.log('\n=== CLASSIFICATION RESULT ===');
-      console.log(JSON.stringify(classifications, null, 2));
-      console.log('=============================\n');
 
       return {
         totalClients: clients.length,
@@ -157,7 +157,10 @@ Debes responder ÚNICAMENTE con un JSON válido (sin markdown, sin explicaciones
     return `${systemContext}\n\nCLIENTES A CLASIFICAR:\n${clientsData}`;
   }
 
-  private async callGemini(prompt: string): Promise<ClientClassification[]> {
+  private async callGemini(
+    prompt: string,
+    clients: ClientMeeting[],
+  ): Promise<ClientClassification[]> {
     try {
       const result = await this.model.generateContent(prompt);
       const response = result.response;
@@ -197,7 +200,10 @@ Debes responder ÚNICAMENTE con un JSON válido (sin markdown, sin explicaciones
         throw new Error('Invalid response format from Gemini');
       }
 
-      return this.validateAndTransformClassifications(rawClassifications);
+      return this.validateAndTransformClassifications(
+        rawClassifications,
+        clients,
+      );
     } catch (error) {
       this.logger.error('Error calling Gemini API', error);
       throw new Error(
@@ -208,11 +214,21 @@ Debes responder ÚNICAMENTE con un JSON válido (sin markdown, sin explicaciones
 
   private validateAndTransformClassifications(
     rawData: AIClassificationResponse[],
+    clients: ClientMeeting[],
   ): ClientClassification[] {
     return rawData.map((item) => {
+      // Buscar el cliente original por email para obtener los campos adicionales
+      const originalClient = clients.find(
+        (client) => client.correo.toLowerCase() === item.email.toLowerCase(),
+      );
+
       return {
         clientName: item.clientName,
         email: item.email,
+        phone: originalClient?.telefono,
+        meetingDate: originalClient?.fechaReunion,
+        assignedSalesperson: originalClient?.vendedorAsignado,
+        isClosed: originalClient?.cerrado,
         industry: this.validateIndustry(item.industry),
         leadSource: this.validateLeadSource(item.leadSource),
         interactionVolume: this.validateInteractionVolume(
