@@ -1,0 +1,263 @@
+.closeRate {
+  min-height: 100vh;
+  background: hsl(var(--background));
+  padding-bottom: 3rem;
+}
+
+.classificationTitleSection {
+  max-width: 80rem;
+  margin: 2rem auto 0.75rem;
+  padding: 0 1.5rem;
+}
+
+.classificationTitleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  background: hsl(var(--card));
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.classificationIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: rgb(147, 51, 234);
+}
+
+.classificationTitle {
+  font-size: 1.75rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, rgb(37, 99, 235), rgb(79, 70, 229), rgb(147, 51, 234));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .classificationTitle {
+    font-size: 2rem;
+  }
+}
+
+.closeRateChartsContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 1rem 1.5rem 2.5rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .closeRateChartsContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .closeRateChartsContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    padding: 1.5rem 1.5rem 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .closeRateChartsContainer {
+    gap: 3rem;
+    padding: 1.5rem 1.5rem 3.5rem;
+  }
+}
+
+/* Average Close Rate Section */
+.averageSection {
+  max-width: 80rem;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.averageCard {
+  background: hsl(var(--card));
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  padding: 2rem;
+  text-align: center;
+}
+
+.averageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.averageIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: rgb(147, 51, 234);
+}
+
+.averageTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  margin: 0;
+}
+
+.averageValue {
+  font-size: 3rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, rgb(37, 99, 235), rgb(79, 70, 229), rgb(147, 51, 234));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0.5rem 0;
+}
+
+.averageDescription {
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  margin: 0.5rem 0 0 0;
+}
+
+/* Legend Section */
+.legendSection {
+  max-width: 80rem;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.legendCard {
+  background: hsl(var(--card));
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  padding: 1.5rem;
+}
+
+.legendHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.legendIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: rgb(147, 51, 234);
+}
+
+.legendTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  margin: 0;
+}
+
+.legendItems {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.legendColor {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.legendText {
+  font-size: 0.875rem;
+  color: hsl(var(--foreground));
+  line-height: 1.5;
+}
+
+.legendText strong {
+  font-weight: 600;
+}
+
+/* Loading State */
+.loadingContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: hsl(var(--background));
+}
+
+.spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 4px solid hsl(var(--muted));
+  border-top-color: hsl(var(--primary));
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingText {
+  margin-top: 1rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .classificationTitleSection {
+    padding: 0 1rem;
+  }
+
+  .classificationTitleWrapper {
+    padding: 1rem 1.25rem;
+  }
+
+  .classificationTitle {
+    font-size: 1.5rem;
+  }
+
+  .averageSection {
+    padding: 0 1rem;
+  }
+
+  .averageCard {
+    padding: 1.5rem;
+  }
+
+  .averageValue {
+    font-size: 2.5rem;
+  }
+
+  .legendSection {
+    padding: 0 1rem;
+  }
+
+  .legendCard {
+    padding: 1.25rem;
+  }
+}
+

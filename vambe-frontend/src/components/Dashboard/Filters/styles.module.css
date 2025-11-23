@@ -1,0 +1,258 @@
+.filtersContainer {
+  max-width: 80rem;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.filtersHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: hsl(var(--card));
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.filtersTitleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filtersTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  margin: 0;
+}
+
+.filterIcon {
+  width: 20px;
+  height: 20px;
+  color: #667eea;
+}
+
+.activeFilterBadge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+}
+
+.clearFiltersButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clearFiltersButton:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.clearIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.filtersContent {
+  width: 100%;
+}
+
+.filtersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.filterSection {
+  position: relative;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+  overflow: visible;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: fit-content;
+}
+
+.filterSection:hover .filterSectionHeader {
+  border-color: hsl(var(--border));
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.filterSectionHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: hsl(var(--muted));
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 2;
+}
+
+.filterSectionHeader:hover {
+  background: hsl(var(--accent));
+}
+
+.filterSectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.filterSectionHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filterCount {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+}
+
+.chevronIcon {
+  width: 16px;
+  height: 16px;
+  color: hsl(var(--muted-foreground));
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filterOptions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  padding: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+  background: hsl(var(--popover));
+  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  animation: smoothExpand 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 100%;
+}
+
+@keyframes smoothExpand {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.filterOptions::-webkit-scrollbar {
+  width: 6px;
+}
+
+.filterOptions::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 3px;
+}
+
+.filterOptions::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 3px;
+}
+
+.filterOptions::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+.filterOption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.filterOption:hover {
+  background: hsl(var(--accent));
+}
+
+.filterInput {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: hsl(var(--primary));
+}
+
+.filterLabel {
+  font-size: 13px;
+  color: hsl(var(--foreground));
+  cursor: pointer;
+  flex: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .filtersGrid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .filtersGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .filtersContainer {
+    padding: 0 1rem;
+  }
+  
+  .filtersHeader {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  .filtersTitleWrapper {
+    justify-content: center;
+  }
+  
+  .clearFiltersButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

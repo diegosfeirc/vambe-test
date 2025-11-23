@@ -1,0 +1,118 @@
+.searcherContainer {
+  max-width: 80rem;
+  margin: 0 auto 2rem;
+  padding: 0 1.5rem;
+}
+
+.searcherWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: hsl(var(--card));
+  backdrop-filter: blur(10px);
+  border: 1px solid hsl(var(--border));
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.searcherWrapper:focus-within {
+  border-color: rgba(102, 126, 234, 0.5);
+  box-shadow: 0 4px 12px -2px rgba(102, 126, 234, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+}
+
+.searchIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  color: #667eea;
+}
+
+.searchIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 16px 12px;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  font-weight: 500;
+  color: hsl(var(--foreground));
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.searchInput::placeholder {
+  color: hsl(var(--muted-foreground));
+  font-weight: 400;
+}
+
+.clearButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  margin-right: 8px;
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.clearButton:hover {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.clearButton:active {
+  transform: scale(0.95);
+}
+
+.clearIcon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .searcherContainer {
+    padding: 0 1rem;
+  }
+
+  .searchInput {
+    font-size: 14px;
+    padding: 14px 10px;
+  }
+
+  .searchIconWrapper {
+    padding: 0 12px;
+  }
+
+  .searchIcon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .searcherWrapper {
+    border-radius: 12px;
+  }
+
+  .searchInput {
+    padding: 12px 8px;
+    font-size: 14px;
+  }
+
+  .searchIconWrapper {
+    padding: 0 10px;
+  }
+}
+

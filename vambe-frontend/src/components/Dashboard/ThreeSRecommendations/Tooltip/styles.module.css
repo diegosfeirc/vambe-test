@@ -1,0 +1,109 @@
+.tooltipContainer {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+
+.infoButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--muted-foreground));
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.infoButton:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  border-color: hsl(var(--accent));
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.tooltipContent {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  width: 280px;
+  background: hsl(var(--popover));
+  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.2s ease-in-out;
+  z-index: 20;
+}
+
+.tooltipContent::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  right: 1rem;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid hsl(var(--popover));
+  filter: drop-shadow(0 -2px 2px rgba(0, 0, 0, 0.05));
+}
+
+.tooltipContent::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  right: 1rem;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 9px solid hsl(var(--border));
+  margin-bottom: -1px;
+  z-index: -1;
+}
+
+.tooltipTitle {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: hsl(var(--popover-foreground));
+  margin: 0 0 0.5rem 0;
+  line-height: 1.4;
+}
+
+.tooltipDescription {
+  font-size: 0.8125rem;
+  color: hsl(var(--muted-foreground));
+  margin: 0;
+  line-height: 1.5;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .tooltipContent {
+    width: 240px;
+    right: -1rem;
+  }
+
+  .tooltipContent::before,
+  .tooltipContent::after {
+    right: 2rem;
+  }
+}
+
