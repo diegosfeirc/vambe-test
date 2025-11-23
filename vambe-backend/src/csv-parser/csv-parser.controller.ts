@@ -17,15 +17,7 @@ import {
   ClassificationResult,
 } from './dto/csv-parse-and-classify-response.dto';
 import { AiClassificationService } from '../ai-classification/ai-classification.service';
-
-interface MulterFile {
-  fieldname: string;
-  originalname: string;
-  encoding: string;
-  mimetype: string;
-  size: number;
-  buffer: Buffer;
-}
+import type { MulterFile } from './interfaces/multer-file.interface';
 
 @Controller('csv-parser')
 export class CsvParserController {

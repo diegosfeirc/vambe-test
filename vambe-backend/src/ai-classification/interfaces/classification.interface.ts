@@ -64,3 +64,19 @@ export interface ClassificationResult {
   classifications: ClientClassification[];
   processingTime: number; // milliseconds
 }
+
+export interface AIClassificationResponse {
+  clientName: string;
+  email: string;
+  phone: string;
+  meetingDate: string;
+  assignedSalesperson: string;
+  isClosed: boolean;
+  industry: string;
+  leadSource: string;
+  interactionVolume: string;
+  mainPainPoint: string;
+  techMaturity: string;
+  urgency: string;
+  confidence: number;
+}

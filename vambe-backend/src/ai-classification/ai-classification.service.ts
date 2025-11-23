@@ -10,23 +10,8 @@ import {
   MainPainPoint,
   TechMaturity,
   Urgency,
+  AIClassificationResponse,
 } from './interfaces/classification.interface';
-
-interface AIClassificationResponse {
-  clientName: string;
-  email: string;
-  phone: string;
-  meetingDate: string;
-  assignedSalesperson: string;
-  isClosed: boolean;
-  industry: string;
-  leadSource: string;
-  interactionVolume: string;
-  mainPainPoint: string;
-  techMaturity: string;
-  urgency: string;
-  confidence: number;
-}
 
 @Injectable()
 export class AiClassificationService {
