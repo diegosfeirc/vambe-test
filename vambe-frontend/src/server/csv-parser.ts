@@ -10,14 +10,6 @@ const apiClient = axios.create({
   },
 });
 
-export const uploadCsv = async (file: File) => {
-  const formData = new FormData();
-  formData.append('file', file);
-
-  const response = await apiClient.post('/csv-parser/upload', formData);
-  return response.data;
-};
-
 export const uploadAndClassifyCsv = async (file: File): Promise<CsvUploadResponse> => {
   const formData = new FormData();
   formData.append('file', file);
