@@ -1,9 +1,12 @@
 .hero {
-  min-height: 100vh;
+  min-height: calc(100vh - 4rem);
   display: flex;
   align-items: center;
   justify-content: center;
   background: hsl(var(--background));
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
 .container {

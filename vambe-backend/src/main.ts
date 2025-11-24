@@ -6,7 +6,11 @@ async function bootstrap() {
 
   // Enable CORS for frontend communication
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'],
+    origin: process.env.FRONTEND_URL?.split(',') || [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://frontend:3000', // Para comunicación interna en Docker
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     credentials: true,
   });

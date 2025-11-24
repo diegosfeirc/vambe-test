@@ -4,6 +4,15 @@
   padding-bottom: 3rem;
 }
 
+.leads {
+  min-height: 100vh;
+  background: hsl(var(--background));
+  padding-bottom: 3rem;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
 /* Loading State */
 .loadingContainer {
   min-height: 100vh;

@@ -1,0 +1,17 @@
+node_modules
+dist
+coverage
+.git
+.gitignore
+.env
+.env.*
+*.log
+.DS_Store
+.vscode
+.idea
+test
+*.md
+.eslintrc*
+.prettierrc
+eslint.config.mjs
+

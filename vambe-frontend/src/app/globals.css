@@ -89,5 +89,17 @@
     @apply bg-background text-foreground;
     font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
     padding-top: 4rem;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  body {
+    padding-top: 4rem;
   }
 }
