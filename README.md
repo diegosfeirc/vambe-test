@@ -1,678 +1,155 @@
-# Vambe Meetings - Sistema de Análisis Inteligente de Ventas
+# Vambe Meetings 🚀
 
-## 📋 Descripción General
+## Tabla de Contenidos
 
-**Vambe Meetings** es una aplicación full-stack diseñada para transformar transcripciones de reuniones de ventas en insights accionables mediante inteligencia artificial. El sistema procesa archivos CSV con información de clientes y sus transcripciones, utiliza modelos de lenguaje avanzados (Google Gemini) para clasificar automáticamente a los clientes en múltiples dimensiones, y presenta los resultados mediante dashboards interactivos y visualizaciones de datos.
+- [Overview](#overview)
+- [Ejecución en Local](#ejecución-en-local)
+- [Arquitectura](#arquitectura)
+- [Decisiones Clave](#decisiones-clave)
+- [Deployment](#deployment)
 
-### Propósito del Proyecto
+## Overview
 
-El sistema automatiza el análisis de leads y clientes potenciales, extrayendo información estructurada de transcripciones no estructuradas y generando recomendaciones estratégicas basadas en patrones identificados en los datos.
+Vambe Meetings es una plataforma de análisis inteligente que procesa transcripciones de reuniones de ventas mediante inteligencia artificial. El sistema extrae automáticamente información clave de clientes, organiza los datos en categorías precisas y genera métricas relevantes para el equipo de Vambe.
 
----
+La aplicación permite subir archivos CSV con datos de reuniones, los cuales son procesados por modelos de lenguaje avanzados (Google Gemini) para clasificar leads en múltiples dimensiones estratégicas. Los resultados se visualizan en dashboards interactivos que facilitan la toma de decisiones basada en datos.
 
-## 📑 Índice
+## Ejecución en Local
 
-- [📋 Descripción General](#-descripción-general)
-  - [Propósito del Proyecto](#propósito-del-proyecto)
-- [🏗️ Arquitectura del Sistema](#️-arquitectura-del-sistema)
-  - [Arquitectura General](#arquitectura-general)
-  - [Backend (NestJS)](#backend-nestjs)
-    - [Módulos Principales](#módulos-principales)
-    - [Flujo de Procesamiento](#flujo-de-procesamiento)
-    - [Decisiones Arquitectónicas Clave](#decisiones-arquitectónicas-clave)
-  - [Frontend (Next.js)](#frontend-nextjs)
-    - [Estructura de Páginas](#estructura-de-páginas)
-    - [Decisiones Arquitectónicas Clave](#decisiones-arquitectónicas-clave-1)
-- [🚀 Funcionalidades Principales](#-funcionalidades-principales)
-  - [1. Procesamiento de Archivos CSV](#1-procesamiento-de-archivos-csv)
-    - [Validación de Archivos](#validación-de-archivos)
-    - [Parsing Inteligente](#parsing-inteligente)
-    - [Validación de Datos](#validación-de-datos)
-  - [2. Clasificación con Inteligencia Artificial](#2-clasificación-con-inteligencia-artificial)
-    - [Dimensiones de Clasificación](#dimensiones-de-clasificación)
-    - [Características de la Clasificación](#características-de-la-clasificación)
-  - [3. Recomendaciones Estratégicas (Metodología 3S)](#3-recomendaciones-estratégicas-metodología-3s)
-    - [Análisis de Datos para 3S](#análisis-de-datos-para-3s)
-    - [Generación de Recomendaciones](#generación-de-recomendaciones)
-  - [4. Visualizaciones y Dashboards](#4-visualizaciones-y-dashboards)
-    - [Dashboard Principal](#dashboard-principal)
-    - [Página de Leads](#página-de-leads)
-    - [Página de Rendimiento (Close Rate)](#página-de-rendimiento-close-rate)
-- [🛠️ Stack Tecnológico](#️-stack-tecnológico)
-  - [Backend](#backend)
-  - [Frontend](#frontend)
-  - [DevOps & Infraestructura](#devops--infraestructura)
-- [📁 Estructura del Proyecto](#-estructura-del-proyecto)
-- [🔌 API Endpoints](#-api-endpoints)
-  - [Backend (Puerto 8000)](#backend-puerto-8000)
-    - [CSV Parser](#csv-parser)
-    - [AI Classification](#ai-classification)
-- [⚙️ Variables de Entorno](#️-variables-de-entorno)
-  - [Backend](#backend-1)
-  - [Frontend](#frontend-1)
-- [🚀 Instrucciones de Ejecución](#-instrucciones-de-ejecución)
-  - [Prerrequisitos](#prerrequisitos)
-  - [Configuración Inicial](#configuración-inicial)
-  - [Ejecución con Make](#ejecución-con-make)
-  - [Otros Comandos Útiles](#otros-comandos-útiles)
-- [🔍 Decisiones de Diseño Clave](#-decisiones-de-diseño-clave)
-- [📊 Flujo de Datos](#-flujo-de-datos)
-
----
-
-## 🏗️ Arquitectura del Sistema
-
-### Arquitectura General
-
-El proyecto sigue una arquitectura de **microservicios** con separación clara entre backend y frontend:
-
-```
-┌─────────────────┐         ┌─────────────────┐
-│   Frontend      │────────▶│    Backend      │
-│   (Next.js)     │  HTTP   │   (NestJS)      │
-│   Puerto 3000   │◀────────│   Puerto 8000   │
-└─────────────────┘         └─────────────────┘
-                                      │
-                                      ▼
-                            ┌─────────────────┐
-                            │  Google Gemini  │
-                            │      API        │
-                            └─────────────────┘
-```
-
-### Backend (NestJS)
-
-**Tecnología:** NestJS (Node.js/TypeScript)  
-**Puerto:** 8000  
-**Arquitectura:** Modular con inyección de dependencias
-
-#### Módulos Principales
-
-1. **AppModule** - Módulo raíz que configura:
-   - `ConfigModule` para gestión de variables de entorno
-   - `CsvParserModule` para procesamiento de CSV
-   - `AiClassificationModule` para clasificación con IA
-
-2. **CsvParserModule** - Responsable de:
-   - Validación y parsing de archivos CSV
-   - Extracción de datos de clientes y reuniones
-   - Validación de formato de columnas (flexible con múltiples variantes de nombres)
-   - Manejo de errores de validación por fila
-
-3. **AiClassificationModule** - Encargado de:
-   - Clasificación de clientes usando Google Gemini AI
-   - Generación de recomendaciones estratégicas (metodología 3S)
-   - Validación y transformación de respuestas de la IA
-
-#### Flujo de Procesamiento
-
-```
-1. Upload CSV → Validación de archivo (extensión, MIME type, tamaño)
-2. Parse CSV → Lectura stream-based con validación por fila
-3. Validación de datos → Verificación de campos obligatorios y formatos
-4. Clasificación IA → Envío a Gemini API con prompt estructurado
-5. Validación respuesta → Transformación y validación de clasificaciones
-6. Respuesta combinada → Retorno de datos parseados + clasificaciones
-```
-
-#### Decisiones Arquitectónicas Clave
-
-- **Streaming CSV Parser**: Uso de `csv-parser` con streams para manejar archivos grandes sin cargar todo en memoria
-- **Validación Flexible**: Sistema de mapeo de columnas que acepta múltiples variantes de nombres (ej: "correo", "Correo", "Correo Electronico")
-- **Separación de Responsabilidades**: Validadores, servicios y controladores claramente separados
-- **Manejo Robusto de Errores**: Validación por fila con reporte detallado de errores sin detener el procesamiento completo
-- **Dual Model Strategy**: Dos modelos Gemini con diferentes temperaturas:
-  - Modelo de clasificación (temp: 0.1) para consistencia
-  - Modelo creativo (temp: 0.7) para recomendaciones estratégicas
-
-### Frontend (Next.js)
-
-**Tecnología:** Next.js 16 (React 19)  
-**Puerto:** 3000  
-**Arquitectura:** App Router con Server/Client Components
-
-#### Estructura de Páginas
-
-1. **Landing Page (`/`)** - Página de inicio con:
-   - Upload de archivo CSV
-   - Descripción de funcionalidades
-   - Interfaz de carga con feedback visual
-
-2. **Dashboard (`/dashboard`)** - Panel principal con:
-   - Gráficos de distribución (pie charts) por múltiples dimensiones
-   - Gráfico de rendimiento por vendedor
-   - Tendencia de leads por mes
-   - Recomendaciones estratégicas 3S (Start, Stop, Spice Up)
-   - Filtros dinámicos (Vendedor, Estado de cierre)
-
-3. **Leads (`/leads`)** - Vista detallada de leads con:
-   - Tabla completa de clasificaciones
-   - Estadísticas resumidas (total, cerrados, tasa de cierre)
-   - Filtros avanzados por todas las dimensiones
-   - Búsqueda por nombre de cliente
-
-4. **Close Rate (`/close-rate`)** - Análisis de rendimiento con:
-   - Gráfico de tasa de cierre por categoría
-   - Comparativa de rendimiento
-   - Métricas de conversión
-
-#### Decisiones Arquitectónicas Clave
-
-- **Client-Side State Management**: Uso de `localStorage` para persistencia de datos entre páginas
-- **Component-Based Architecture**: Componentes reutilizables y modulares
-- **Responsive Design**: Diseño adaptativo con soporte móvil
-- **Theme Support**: Sistema de temas claro/oscuro con `next-themes`
-- **Data Visualization**: Uso de `recharts` para gráficos interactivos
-- **Optimistic UI**: Feedback inmediato durante carga de archivos
-
----
-
-## 🚀 Funcionalidades Principales
-
-### 1. Procesamiento de Archivos CSV
-
-#### Validación de Archivos
-- Verificación de extensión `.csv`
-- Validación de MIME type (`text/csv`, `application/csv`, `text/plain`)
-- Verificación de tamaño (archivos no vacíos)
-- Manejo de errores descriptivos
-
-#### Parsing Inteligente
-- **Mapeo Flexible de Columnas**: El sistema acepta múltiples variantes de nombres de columnas:
-  - `correo`, `Correo`, `Correo Electronico`, `Correo Electrónico`
-  - `telefono`, `Telefono`, `Teléfono`, `Numero de Telefono`
-  - `fecha`, `Fecha`, `Fecha de la Reunion`, `Fecha de la Reunión`
-  - `vendedor`, `Vendedor`, `Vendedor asignado`, `Vendedor Asignado`
-  - `cerrado`, `Cerrado`, `closed`, `Closed`
-  - `transcripcion`, `Transcripcion`, `Transcripción`
-
-#### Validación de Datos
-- **Campos Obligatorios**: nombre, correo, teléfono, vendedor, fecha, cerrado
-- **Validación de Email**: Regex para formato de correo electrónico válido
-- **Parsing de Booleanos**: Acepta múltiples formatos:
-  - Numéricos: `1`/`0`
-  - Booleanos: `true`/`false`
-  - Español: `si`/`sí`/`no`
-  - Inglés: `yes`/`no`
-- **Reporte de Errores**: Cada fila con error se reporta individualmente sin detener el procesamiento
-
-### 2. Clasificación con Inteligencia Artificial
-
-#### Dimensiones de Clasificación
-
-El sistema clasifica cada cliente en **6 dimensiones** usando Google Gemini AI:
-
-1. **Industria / Vertical** (`industry`)
-   - E-commerce / Retail
-   - Salud
-   - Finanzas
-   - Educación
-   - Turismo
-   - Logística
-   - Tecnología / SaaS
-   - Servicios Profesionales
-
-2. **Canal de Adquisición** (`leadSource`)
-   - Evento / Conferencia
-   - Referido / Boca a Boca
-   - Búsqueda Web / Google
-   - Contenido (Blog/Podcast/Prensa)
-   - Redes Sociales
-
-3. **Escala del Problema** (`interactionVolume`)
-   - Bajo (< 500 mes)
-   - Medio (500 - 2000 mes)
-   - Alto (> 2000 mes)
-   - Normalización automática de volúmenes semanales/diarios a mensuales
-
-4. **Dolor Principal** (`mainPainPoint`)
-   - Eficiencia / Sobrecarga
-   - Experiencia / Personalización
-   - Disponibilidad 24/7
-   - Escalabilidad
-
-5. **Integración Tecnológica** (`techMaturity`)
-   - Gestión Manual
-   - Sistema de Citas/Reservas
-   - E-commerce/Plataforma
-   - CRM/Soporte
-
-6. **Urgencia / Estacionalidad** (`urgency`)
-   - Alta (Temporada/Pico)
-   - Media (Crecimiento constante)
-   - Baja (Exploración)
-
-#### Características de la Clasificación
-
-- **Validación Estricta**: Validación de valores contra enums predefinidos
-- **Fallbacks Inteligentes**: Valores por defecto cuando la IA retorna valores inválidos
-- **Procesamiento Batch**: Clasificación de múltiples clientes en una sola llamada a la API
-- **Métricas de Performance**: Tracking de tiempo de procesamiento
-
-### 3. Recomendaciones Estratégicas (Metodología 3S)
-
-El sistema genera recomendaciones estratégicas usando la metodología **"3 S"**:
-
-- **Start**: Qué empezar a hacer (3 recomendaciones)
-- **Stop**: Qué dejar de hacer (3 recomendaciones)
-- **Spice Up**: Cómo mejorar lo que ya funciona (3 recomendaciones)
-
-#### Análisis de Datos para 3S
-
-El sistema analiza:
-- Tasa de cierre total y por categorías
-- Distribución por industria
-- Distribución por fuente de leads
-- Distribución por volumen de interacción
-- Distribución por dolor principal
-- Distribución por urgencia
-
-#### Generación de Recomendaciones
-
-- Uso de modelo creativo (temperatura 0.7) para mayor variabilidad
-- Análisis de patrones en los datos clasificados
-- Recomendaciones específicas y accionables
-- Validación estricta de estructura de respuesta (exactamente 3 por categoría)
-
-### 4. Visualizaciones y Dashboards
-
-#### Dashboard Principal
-
-- **Gráficos de Distribución (Pie Charts)**:
-  - Por industria
-  - Por fuente de leads
-  - Por volumen de interacción
-  - Por dolor principal
-  - Por madurez tecnológica
-  - Por urgencia
-
-- **Gráfico de Rendimiento por Vendedor**:
-  - Leads totales por vendedor
-  - Leads cerrados por vendedor
-  - Comparativa visual
-
-- **Tendencia de Leads por Mes**:
-  - Evolución temporal de leads
-  - Identificación de patrones estacionales
-
-- **Recomendaciones 3S**:
-  - Visualización de recomendaciones estratégicas
-  - Cards expandibles con descripciones detalladas
-
-#### Página de Leads
-
-- **Tabla Completa**:
-  - Todas las clasificaciones con información detallada
-  - Indicador visual de nivel de confianza
-  - Estado de cierre destacado
-
-- **Estadísticas Resumidas**:
-  - Total de leads
-  - Leads cerrados
-  - Tasa de cierre porcentual
-
-- **Filtros Avanzados**:
-  - Por vendedor
-  - Por estado de cierre
-  - Por industria
-  - Por fuente
-  - Por volumen
-  - Por dolor principal
-  - Por madurez tecnológica
-  - Por urgencia
-
-- **Búsqueda**:
-  - Búsqueda en tiempo real por nombre de cliente
-
-#### Página de Rendimiento (Close Rate)
-
-- **Gráfico de Tasa de Cierre**:
-  - Por categoría
-  - Comparativa visual
-  - Métricas de conversión
-
----
-
-## 🛠️ Stack Tecnológico
-
-### Backend
-
-- **Framework**: NestJS 11.x
-- **Lenguaje**: TypeScript 5.7
-- **Runtime**: Node.js 22
-- **IA/ML**: Google Generative AI (Gemini 2.5 Flash Lite)
-- **Parsing**: csv-parser 3.2.0
-- **Validación**: class-validator, class-transformer
-- **Configuración**: @nestjs/config
-- **CORS**: Configurado para comunicación con frontend
-
-### Frontend
-
-- **Framework**: Next.js 16.0.3
-- **Lenguaje**: TypeScript 5
-- **UI Library**: React 19.2
-- **Estilos**: Tailwind CSS 4
-- **Componentes**: Radix UI
-- **Gráficos**: Recharts 3.4.1
-- **HTTP Client**: Axios 1.13.2
-- **Notificaciones**: Sonner 2.0.7
-- **Iconos**: Lucide React 0.554.0
-- **Temas**: next-themes 0.4.6
-
-### DevOps & Infraestructura
-
-- **Containerización**: Docker
-- **Orquestación**: Docker Compose
-- **Build Tool**: Make
-- **Health Checks**: Implementados en ambos servicios
-- **Networking**: Red bridge personalizada (`vambe-network`)
-
----
-
-## 📁 Estructura del Proyecto
-
-```
-vambe-test/
-├── docker-compose.yml          # Configuración de servicios Docker
-├── Makefile                    # Comandos de automatización
-├── README.md                   # Este archivo
-│
-├── vambe-backend/              # Backend NestJS
-│   ├── src/
-│   │   ├── main.ts            # Punto de entrada
-│   │   ├── app.module.ts      # Módulo raíz
-│   │   ├── csv-parser/        # Módulo de procesamiento CSV
-│   │   │   ├── csv-parser.controller.ts
-│   │   │   ├── csv-parser.service.ts
-│   │   │   ├── csv-parser.module.ts
-│   │   │   ├── dto/           # Data Transfer Objects
-│   │   │   ├── interfaces/    # Interfaces TypeScript
-│   │   │   └── validators/    # Validadores de datos
-│   │   └── ai-classification/ # Módulo de clasificación IA
-│   │       ├── ai-classification.controller.ts
-│   │       ├── ai-classification.service.ts
-│   │       ├── ai-classification.module.ts
-│   │       ├── dto/           # DTOs de request/response
-│   │       └── interfaces/    # Interfaces de clasificación
-│   ├── Dockerfile             # Imagen Docker del backend
-│   ├── package.json
-│   └── tsconfig.json
-│
-└── vambe-frontend/            # Frontend Next.js
-    ├── src/
-    │   ├── app/               # App Router de Next.js
-    │   │   ├── page.tsx      # Landing page
-    │   │   ├── dashboard/    # Dashboard principal
-    │   │   ├── leads/        # Vista de leads
-    │   │   └── close-rate/   # Análisis de rendimiento
-    │   ├── components/        # Componentes React
-    │   │   ├── Dashboard/    # Componentes del dashboard
-    │   │   ├── Leads/        # Componentes de leads
-    │   │   ├── Landing/      # Componentes de landing
-    │   │   └── ui/           # Componentes UI base
-    │   ├── server/           # Server actions/utilities
-    │   └── utils/            # Utilidades y helpers
-    ├── Dockerfile            # Imagen Docker del frontend
-    ├── package.json
-    └── next.config.ts
-```
-
----
-
-## 🔌 API Endpoints
-
-### Backend (Puerto 8000)
-
-#### CSV Parser
-
-**POST** `/csv-parser/upload-and-classify`
-- **Descripción**: Sube un archivo CSV, lo parsea y clasifica los clientes con IA
-- **Content-Type**: `multipart/form-data`
-- **Body**: 
-  - `file`: Archivo CSV (form-data)
-- **Response**: 
-  ```typescript
-  {
-    parseResult: {
-      totalRows: number;
-      validRows: number;
-      errors: ValidationError[];
-    };
-    classification: {
-      totalClients: number;
-      classifications: ClientClassification[];
-      processingTime: number;
-    } | null;
-    data: ClientMeeting[];
-  }
-  ```
-
-#### AI Classification
-
-**POST** `/ai-classification/classify`
-- **Descripción**: Clasifica una lista de clientes usando IA
-- **Body**:
-  ```typescript
-  {
-    clients: ClientMeeting[];
-  }
-  ```
-- **Response**:
-  ```typescript
-  {
-    totalClients: number;
-    classifications: ClientClassification[];
-    processingTime: number;
-  }
-  ```
-
-**POST** `/ai-classification/three-s`
-- **Descripción**: Genera recomendaciones estratégicas 3S
-- **Body**:
-  ```typescript
-  {
-    classifications: ClientClassification[];
-  }
-  ```
-- **Response**:
-  ```typescript
-  {
-    start: Array<{ title: string; description: string }>;
-    stop: Array<{ title: string; description: string }>;
-    spiceUp: Array<{ title: string; description: string }>;
-    processingTime: number;
-  }
-  ```
-
----
-
-## ⚙️ Variables de Entorno
-
-### Backend
-
-Crear archivo `.env` en `vambe-backend/`:
-
-```env
-# Puerto del servidor
-PORT=8000
-
-# URL del frontend (separadas por comas para múltiples orígenes)
-FRONTEND_URL=http://localhost:3000,http://frontend:3000
-
-# API Key de Google Gemini (OBLIGATORIO)
-GEMINI_API_KEY=tu_api_key_aqui
-```
-
-### Frontend
-
-Las variables de entorno del frontend se configuran en `docker-compose.yml`:
-
-```yaml
-environment:
-  - NEXT_PUBLIC_API_URL=http://localhost:8000
-```
-
----
-
-## 🚀 Instrucciones de Ejecución
+Para ejecutar la aplicación en modo producción localmente, sigue estos pasos:
 
 ### Prerrequisitos
 
-- **Docker** y **Docker Compose** instalados
-- **Make** instalado (generalmente incluido en sistemas Unix/macOS)
-- **API Key de Google Gemini** (obtener en [Google AI Studio](https://makersuite.google.com/app/apikey))
+- Docker y Docker Compose instalados
+- Make instalado (opcional, pero recomendado)
+- Archivo `.env` configurado en `vambe-backend/` con la variable `GEMINI_API_KEY`
 
-### Configuración Inicial
+### Pasos
 
-1. **Clonar el repositorio** (si aplica):
+1. **Clonar el repositorio** (si aún no lo has hecho):
    ```bash
    git clone <repository-url>
    cd vambe-test
    ```
 
-2. **Configurar variables de entorno del backend**:
+2. **Configurar variables de entorno**:
+   - Crea un archivo `.env` en el directorio `vambe-backend/`
+   - Agrega tu API key de Google Gemini:
+     ```
+     GEMINI_API_KEY=tu_api_key_aqui
+     ```
+
+3. **Ejecutar en producción**:
    ```bash
-   cd vambe-backend
-   cp .env.example .env  # Si existe un ejemplo
-   # O crear manualmente:
-   touch .env
+   make prod
    ```
    
-   Editar `vambe-backend/.env` y agregar:
-   ```env
-   PORT=8000
-   FRONTEND_URL=http://localhost:3000,http://frontend:3000
-   GEMINI_API_KEY=tu_api_key_de_gemini_aqui
-   ```
+   Este comando construirá las imágenes Docker y levantará los contenedores en modo producción.
 
-3. **Verificar configuración de Docker**:
-   - Asegurarse de que Docker Desktop esté ejecutándose
-   - Verificar que los puertos 3000 y 8000 estén disponibles
+4. **Acceder a la aplicación**:
+   - Frontend: http://localhost:3000
+   - Backend: http://localhost:8000
 
-### Ejecución con Make
+### Comandos Adicionales
 
-El proyecto incluye un `Makefile` con comandos útiles. Para ejecutar en producción:
+- `make down`: Detener los contenedores
+- `make logs`: Ver logs de todos los servicios
+- `make restart`: Reiniciar los contenedores
+- `make clean`: Eliminar contenedores, imágenes y volúmenes
 
-```bash
-make prod
-```
+## Arquitectura
 
-Este comando:
-1. Construye las imágenes Docker de backend y frontend
-2. Inicia los contenedores en modo detached
-3. Muestra las URLs de acceso
+La aplicación sigue una arquitectura de microservicios con separación clara entre frontend y backend:
 
-**URLs de acceso:**
-- **Frontend**: http://localhost:3000
-- **Backend**: http://localhost:8000
+### Frontend
+- **Framework**: Next.js 16 con React 19
+- **Lenguaje**: TypeScript
+- **Estilos**: Tailwind CSS 4
+- **Visualización**: Recharts para gráficos interactivos
+- **Estado**: LocalStorage para persistencia de datos del cliente
 
-### Otros Comandos Útiles
+### Backend
+- **Framework**: NestJS
+- **Lenguaje**: TypeScript
+- **IA**: Google Gemini API (gemini-2.5-flash-lite)
+- **Validación**: class-validator y class-transformer
 
-```bash
-# Ver ayuda con todos los comandos disponibles
-make help
+### Infraestructura
+- **Containerización**: Docker y Docker Compose
+- **Comunicación**: REST API con CORS habilitado
+- **Health Checks**: Implementados en ambos servicios para garantizar disponibilidad
 
-# Ver logs de todos los servicios
-make logs
+El backend procesa archivos CSV, valida los datos y utiliza la API de Gemini para clasificar leads. El frontend consume estos datos y los presenta en dashboards interactivos con capacidades de filtrado y visualización avanzada.
 
-# Ver logs solo del backend
-make logs-backend
+## Decisiones Clave
 
-# Ver logs solo del frontend
-make logs-frontend
+### Categorías de Clasificación
 
-# Detener los contenedores
-make down
+Se eligieron 6 dimensiones de clasificación que proporcionan información estratégica valiosa para el equipo de Vambe:
 
-# Reiniciar los contenedores
-make restart
+1. **Industria / Vertical** 🏭: Identifica qué sectores generan más leads y tienen mayor tasa de cierre, permitiendo enfocar esfuerzos de marketing y ventas en verticales más rentables.
 
-# Ver estado de los contenedores
-make status
+2. **Canal de Adquisición** 📍: Muestra el origen de los leads, facilitando la identificación de canales más efectivos y la optimización del presupuesto de marketing.
 
-# Limpiar todo (contenedores, imágenes, volúmenes)
-make clean
+3. **Volumen de Interacción** 💬: Ayuda a priorizar leads según la escala del problema que buscan resolver. Un volumen alto suele indicar mayor urgencia y disposición a pagar.
 
-# Reconstruir sin caché
-make rebuild
+4. **Dolor Principal** ⚠️: Proporciona insights sobre las necesidades específicas de los clientes, permitiendo personalizar la propuesta de valor y el enfoque de ventas.
 
-# Acceder al shell del backend
-make shell-backend
+5. **Madurez Tecnológica** 💻: Ofrece información directa sobre el nivel de adopción tecnológica del lead, indicando qué integraciones son prioritarias para desarrollar.
 
-# Acceder al shell del frontend
-make shell-frontend
-```
+6. **Urgencia** ⏰: Facilita la táctica de cierre identificando clientes con estacionalidad o deadlines claros, permitiendo priorizar esfuerzos comerciales.
 
-## 🔍 Decisiones de Diseño Clave
+### Gráficos y Secciones
 
-### 1. Arquitectura Modular (NestJS)
+La selección de visualizaciones está diseñada para maximizar el valor estratégico:
 
-**Decisión**: Uso de módulos independientes (CsvParserModule, AiClassificationModule)  
-**Razón**: Facilita mantenimiento, testing y escalabilidad. Cada módulo tiene responsabilidades claras.
+- **Gráficos de Torta (Pie Charts)**: Muestran la distribución de leads en cada categoría, facilitando la identificación rápida de patrones y concentraciones. Para el equipo de ventas, estos gráficos permiten preparar pitches específicos por industria, adaptar estrategias de cierre según el perfil del cliente y priorizar esfuerzos en las categorías que representan mayor volumen o potencial. Por ejemplo, si la mayoría de leads provienen de "E-commerce / Retail", el equipo puede desarrollar un mensaje de ventas especializado para ese vertical, destacando casos de uso específicos y beneficios relevantes.
 
-### 2. Validación Flexible de Columnas CSV
+- **Gráfico de Tendencia de Leads**: Visualiza la evolución temporal de leads por mes, permitiendo identificar estacionalidades y tendencias de crecimiento. El equipo de ventas puede utilizar esta información para planificar objetivos mensuales, anticipar períodos de alta demanda y ajustar estrategias de seguimiento. Si se identifica un patrón estacional, pueden prepararse con anticipación, aumentando la capacidad de respuesta y mejorando las tasas de conversión durante picos de actividad.
 
-**Decisión**: Sistema de mapeo que acepta múltiples variantes de nombres de columnas  
-**Razón**: Los CSVs pueden venir de diferentes fuentes con diferentes convenciones de nombres. Esto mejora la usabilidad sin requerir estandarización estricta.
+- **Gráfico de Leads por Vendedor**: Facilita la gestión de equipos de ventas, identificando desempeño individual y distribución de carga de trabajo. Este gráfico permite detectar desbalances en la asignación de leads, identificar oportunidades de coaching y reconocer mejores prácticas de los vendedores con mayor éxito. Si un vendedor tiene significativamente mejor tasa de cierre en ciertas categorías, se pueden compartir sus estrategias con el resto del equipo para mejorar el desempeño colectivo.
 
-### 3. Procesamiento Stream-Based
+- **Gráficos de Tasa de Cierre**: Analizan qué categorías tienen mayor probabilidad de cierre, proporcionando insights críticos para optimizar el proceso de ventas. El equipo de ventas utiliza esta información para priorizar tiempo y esfuerzo en leads con mayor probabilidad de conversión. Por ejemplo, si los leads con "Urgencia Alta" tienen una tasa de cierre del 60% versus 20% en "Urgencia Baja", el equipo puede enfocar sus recursos en leads urgentes y ajustar su estrategia de seguimiento para leads menos urgentes, optimizando así la eficiencia del proceso comercial.
 
-**Decisión**: Uso de streams para parsing de CSV  
-**Razón**: Permite manejar archivos grandes sin cargar todo en memoria, mejorando performance y escalabilidad.
+- **Recomendaciones 3S (Start, Stop, Spice Up)**: Generadas por IA, ofrecen recomendaciones estratégicas accionables basadas en los patrones identificados en los datos. Para el equipo de ventas, estas recomendaciones transforman datos en acciones concretas. Por ejemplo, pueden sugerir "empezar a enfocarse en leads de alto volumen" si estos tienen mejor tasa de cierre, "dejar de invertir tiempo en leads de baja urgencia sin seguimiento estructurado" si no están generando resultados, o "mejorar el pitch para clientes con madurez tecnológica avanzada" si se identifica una oportunidad de optimización. Estas recomendaciones ayudan al equipo a adaptar rápidamente sus estrategias basándose en evidencia real, mejorando continuamente el desempeño comercial.
 
-### 4. Dual Model Strategy para IA
+Todos los gráficos cuentan con funcionalidad de filtrado completo, permitiendo analizar elementos particulares y combinados para realizar análisis más profundos y específicos según las necesidades del equipo. Por ejemplo, el equipo de ventas puede filtrar por "Leads cerrados de industria E-commerce con alto volumen y urgencia alta" para entender mejor ese segmento específico y replicar estrategias exitosas en leads similares.
 
-**Decisión**: Dos modelos Gemini con diferentes temperaturas  
-**Razón**: 
-- Clasificación requiere consistencia (temp: 0.1)
-- Recomendaciones requieren creatividad (temp: 0.7)
+Cada visualización aporta información complementaria que, en conjunto, permite una visión 360° del pipeline de ventas y facilita la toma de decisiones informadas.
 
-### 5. Client-Side State Management
+### Stack Tecnológico
 
-**Decisión**: Uso de localStorage en lugar de base de datos  
-**Razón**: Para este MVP, la persistencia en cliente es suficiente. Los datos se mantienen durante la sesión del navegador.
+**NestJS para el Backend**: Se eligió NestJS por su arquitectura modular basada en decoradores y su enfoque orientado a la escalabilidad. El framework proporciona una estructura clara y organizada que facilita el mantenimiento del código, especialmente importante para servicios que integran múltiples APIs externas (como Google Gemini). Además, NestJS ofrece validación robusta de datos nativa, manejo de errores estructurado y soporte completo para TypeScript, lo que garantiza type-safety en todo el backend.
 
-### 6. Validación Estricta de Respuestas de IA
+**Next.js para el Frontend**: Next.js fue seleccionado por su capacidad de renderizado del lado del servidor (SSR) y generación estática, optimizando el rendimiento de la aplicación. El framework facilita la creación de dashboards interactivos con React, ofreciendo routing automático, optimización de imágenes y code splitting sin configuración adicional. La integración nativa con TypeScript y su ecosistema de herramientas hacen que Next.js sea ideal para aplicaciones que requieren visualizaciones complejas y alta interactividad, como los dashboards de análisis de datos.
 
-**Decisión**: Validación exhaustiva de respuestas de Gemini con fallbacks  
-**Razón**: Las APIs de IA pueden retornar formatos inesperados. La validación garantiza integridad de datos.
+## Deployment
 
-### 7. Health Checks en Docker
+### Frontend - Vercel
 
-**Decisión**: Health checks configurados en ambos servicios  
-**Razón**: Permite que Docker Compose espere a que los servicios estén listos antes de iniciar dependencias.
+Se eligió Vercel para el despliegue del frontend debido a:
 
-### 8. Multi-Stage Docker Builds
+- **Integración Nativa con Next.js**: Vercel está optimizado para aplicaciones Next.js, ofreciendo despliegues automáticos desde Git, optimización de imágenes, y edge functions sin configuración adicional.
 
-**Decisión**: Dockerfiles con múltiples stages  
-**Razón**: Reduce tamaño de imágenes finales, separando dependencias de desarrollo de producción.
+- **Performance**: CDN global y optimizaciones automáticas que garantizan tiempos de carga rápidos en cualquier ubicación.
 
----
+- **Simplicidad**: Configuración mínima requerida, despliegues con un solo comando o integración automática con repositorios Git.
 
-## 📊 Flujo de Datos
+**Aplicación en producción**: [https://vambe-test.vercel.app/](https://vambe-test.vercel.app/)
 
-```
-Usuario sube CSV
-    ↓
-Frontend valida archivo localmente
-    ↓
-POST /csv-parser/upload-and-classify
-    ↓
-Backend valida archivo (extensión, MIME, tamaño)
-    ↓
-Parse CSV con validación por fila
-    ↓
-Si hay filas válidas → Clasificación con Gemini AI
-    ↓
-Validación y transformación de clasificaciones
-    ↓
-Respuesta combinada (parse + classification)
-    ↓
-Frontend almacena en localStorage
-    ↓
-Navegación a Dashboard
-    ↓
-Visualización de datos y gráficos
-    ↓
-Generación de recomendaciones 3S
-```
+### Backend - Render
+
+Se eligió Render para el despliegue del backend debido a:
+
+- **Simplicidad**: Render ofrece una experiencia de despliegue extremadamente simple. Solo necesitas conectar tu repositorio Git y Render detecta automáticamente el Dockerfile, construyendo y desplegando la aplicación sin configuración compleja.
+
+- **Free Tier Generoso**: Render proporciona un tier gratuito que incluye servicios web con sleep automático, ideal para aplicaciones en desarrollo o con tráfico moderado. Esto permite probar y desplegar sin costos iniciales.
+
+- **Integración Nativa con Docker**: Render tiene soporte nativo para Docker, lo que significa que puedes desplegar exactamente el mismo contenedor que ejecutas localmente, garantizando consistencia entre entornos. El proceso es tan simple como apuntar al Dockerfile y Render se encarga del resto.
+
+> **Nota**: Al estar el backend completamente dockerizado, puede desplegarse de manera sencilla en cualquier otro servicio que soporte contenedores Docker, como Cloud Run de GCP, AWS ECS, Azure Container Instances, entre otros, sin necesidad de modificar el código.
+
+**API en producción**: [https://vambe-test-backend.onrender.com/](https://vambe-test-backend.onrender.com/)
+
+La combinación de Vercel para el frontend y Render para el backend proporciona una solución de despliegue completa, simple y económica para la aplicación.
+
