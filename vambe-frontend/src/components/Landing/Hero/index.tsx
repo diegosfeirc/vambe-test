@@ -1,15 +1,20 @@
 'use client';
 
 import { Upload, Sparkles, Database, BarChart } from 'lucide-react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './styles.module.css';
 import { uploadAndClassifyCsv } from '@/server/csv-parser';
+import { wakeUpBackend } from '@/server/wake-up';
 
 export default function Hero() {
   const router = useRouter();
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    wakeUpBackend();
+  }, []);
 
   const handleFileUpload = () => {
     fileInputRef.current?.click();
