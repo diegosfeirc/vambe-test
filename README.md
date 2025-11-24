@@ -1,2 +1,2 @@
-# backend-vambe-test
-Backend for Vambe Technical Test
+# vambe-test
+Vambe Technical Test
