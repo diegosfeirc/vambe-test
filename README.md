@@ -10,6 +10,56 @@ El sistema automatiza el análisis de leads y clientes potenciales, extrayendo i
 
 ---
 
+## 📑 Índice
+
+- [📋 Descripción General](#-descripción-general)
+  - [Propósito del Proyecto](#propósito-del-proyecto)
+- [🏗️ Arquitectura del Sistema](#️-arquitectura-del-sistema)
+  - [Arquitectura General](#arquitectura-general)
+  - [Backend (NestJS)](#backend-nestjs)
+    - [Módulos Principales](#módulos-principales)
+    - [Flujo de Procesamiento](#flujo-de-procesamiento)
+    - [Decisiones Arquitectónicas Clave](#decisiones-arquitectónicas-clave)
+  - [Frontend (Next.js)](#frontend-nextjs)
+    - [Estructura de Páginas](#estructura-de-páginas)
+    - [Decisiones Arquitectónicas Clave](#decisiones-arquitectónicas-clave-1)
+- [🚀 Funcionalidades Principales](#-funcionalidades-principales)
+  - [1. Procesamiento de Archivos CSV](#1-procesamiento-de-archivos-csv)
+    - [Validación de Archivos](#validación-de-archivos)
+    - [Parsing Inteligente](#parsing-inteligente)
+    - [Validación de Datos](#validación-de-datos)
+  - [2. Clasificación con Inteligencia Artificial](#2-clasificación-con-inteligencia-artificial)
+    - [Dimensiones de Clasificación](#dimensiones-de-clasificación)
+    - [Características de la Clasificación](#características-de-la-clasificación)
+  - [3. Recomendaciones Estratégicas (Metodología 3S)](#3-recomendaciones-estratégicas-metodología-3s)
+    - [Análisis de Datos para 3S](#análisis-de-datos-para-3s)
+    - [Generación de Recomendaciones](#generación-de-recomendaciones)
+  - [4. Visualizaciones y Dashboards](#4-visualizaciones-y-dashboards)
+    - [Dashboard Principal](#dashboard-principal)
+    - [Página de Leads](#página-de-leads)
+    - [Página de Rendimiento (Close Rate)](#página-de-rendimiento-close-rate)
+- [🛠️ Stack Tecnológico](#️-stack-tecnológico)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+  - [DevOps & Infraestructura](#devops--infraestructura)
+- [📁 Estructura del Proyecto](#-estructura-del-proyecto)
+- [🔌 API Endpoints](#-api-endpoints)
+  - [Backend (Puerto 8000)](#backend-puerto-8000)
+    - [CSV Parser](#csv-parser)
+    - [AI Classification](#ai-classification)
+- [⚙️ Variables de Entorno](#️-variables-de-entorno)
+  - [Backend](#backend-1)
+  - [Frontend](#frontend-1)
+- [🚀 Instrucciones de Ejecución](#-instrucciones-de-ejecución)
+  - [Prerrequisitos](#prerrequisitos)
+  - [Configuración Inicial](#configuración-inicial)
+  - [Ejecución con Make](#ejecución-con-make)
+  - [Otros Comandos Útiles](#otros-comandos-útiles)
+- [🔍 Decisiones de Diseño Clave](#-decisiones-de-diseño-clave)
+- [📊 Flujo de Datos](#-flujo-de-datos)
+
+---
+
 ## 🏗️ Arquitectura del Sistema
 
 ### Arquitectura General
