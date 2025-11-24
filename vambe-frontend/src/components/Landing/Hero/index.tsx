@@ -130,7 +130,7 @@ export default function Hero() {
               {isUploading ? 'Procesando...' : 'Subir archivo CSV'}
             </button>
             <p className={styles.ctaSubtext}>
-              Comienza analizando tus transcripciones de ventas
+              {isUploading ? 'Esto no tomará más de 20 segundos...' : 'Comienza analizando tus transcripciones de ventas'}
             </p>
           </div>
         </div>

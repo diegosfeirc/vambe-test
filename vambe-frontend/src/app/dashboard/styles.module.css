@@ -2,6 +2,9 @@
   min-height: 100vh;
   background: hsl(var(--background));
   padding-bottom: 3rem;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .salesChartSection {
@@ -14,6 +17,15 @@
   max-width: 80rem;
   margin: 2rem auto;
   padding: 0 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+@media (max-width: 767px) {
+  .threeSSection {
+    padding: 0 1rem;
+  }
 }
 
 .classificationTitleSection {

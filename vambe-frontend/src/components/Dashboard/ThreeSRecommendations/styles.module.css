@@ -2,6 +2,9 @@
   max-width: 80rem;
   margin: 0 auto;
   padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .titleSection {
@@ -68,12 +71,20 @@
   gap: 1.5rem;
   margin-top: 1.5rem;
   padding: 0 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
   .recommendationsGrid {
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .recommendationsGrid {
+    padding: 0 1rem;
   }
 }
 
@@ -85,6 +96,15 @@
   padding: 1.5rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   transition: transform 0.2s, box-shadow 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .recommendationCard {
+    padding: 1rem;
+  }
 }
 
 .recommendationCard:hover {
@@ -176,12 +196,18 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
+  width: 100%;
+  min-width: 0;
 }
 
 .recommendationTitle {
   font-weight: 500;
   flex: 1;
+  min-width: 0;
   color: hsl(var(--foreground));
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .viewButton {
@@ -199,6 +225,17 @@
   transition: all 0.2s;
   white-space: nowrap;
   flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+  .viewButton {
+    padding: 0.375rem 0.5rem;
+    font-size: 0.8125rem;
+  }
+  
+  .viewButton .chevronIcon {
+    display: none;
+  }
 }
 
 .viewButton:hover {

@@ -29,6 +29,7 @@
   justify-content: center;
   gap: 0.75rem;
   margin-bottom: 0.5rem;
+  flex-wrap: nowrap;
 }
 
 .titleIcon {
@@ -36,6 +37,10 @@
   height: 2rem;
   color: rgb(147, 51, 234);
   animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+  display: block;
+  margin: 0;
+  padding: 0;
 }
 
 @keyframes pulse {
@@ -55,6 +60,8 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0;
+  line-height: 1.2;
+  display: inline-block;
 }
 
 @media (min-width: 768px) {
@@ -78,16 +85,23 @@
 
   .headerTitleSection {
     width: 100%;
-    text-align: left;
-    align-items: flex-start;
+    text-align: center;
+    align-items: center;
   }
 
   .titleWrapper {
-    justify-content: flex-start;
+    justify-content: center;
+    gap: 0.5rem;
   }
 
   .title {
     font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .titleIcon {
+    width: 1.75rem;
+    height: 1.75rem;
   }
 
   .subtitle {
