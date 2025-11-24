@@ -10,10 +10,10 @@ services:
       - NODE_ENV=production
       - FRONTEND_URL=http://localhost:3000,http://frontend:3000
     env_file:
-      - ./.env
+      - ./vambe-backend/.env
     volumes:
-      # Mount .env file from root if it exists
-      - ./.env:/app/.env:ro
+      # Mount .env file if it exists
+      - ./vambe-backend/.env:/app/.env:ro
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]

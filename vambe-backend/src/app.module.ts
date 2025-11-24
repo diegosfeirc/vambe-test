@@ -4,13 +4,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CsvParserModule } from './csv-parser/csv-parser.module';
 import { AiClassificationModule } from './ai-classification/ai-classification.module';
-import { resolve } from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true, // Hace que las variables estén disponibles globalmente
-      envFilePath: resolve(__dirname, '../../.env'), // Apunta al .env en la raíz del proyecto
+      envFilePath: '.env', // Especifica la ruta del archivo .env
     }),
     CsvParserModule,
     AiClassificationModule,
