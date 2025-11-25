@@ -1,3 +1,5 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export enum IndustryVertical {
   ECOMMERCE_RETAIL = 'E-commerce / Retail',
   HEALTHCARE = 'Salud',
@@ -43,20 +45,103 @@ export enum Urgency {
   LOW = 'Baja (Exploración)',
 }
 
-export interface ClientClassification {
+export class ClientClassification {
+  @ApiProperty({
+    description: 'Nombre completo del cliente',
+    example: 'Juan Pérez',
+    type: String,
+  })
   clientName: string;
+
+  @ApiProperty({
+    description: 'Correo electrónico del cliente',
+    example: 'juan.perez@example.com',
+    type: String,
+  })
   email: string;
+
+  @ApiProperty({
+    description: 'Número de teléfono del cliente',
+    example: '+56912345678',
+    type: String,
+    required: false,
+  })
   phone?: string;
+
+  @ApiProperty({
+    description: 'Fecha de la reunión en formato ISO 8601',
+    example: '2024-01-15T10:00:00Z',
+    type: String,
+    required: false,
+  })
   meetingDate?: string;
+
+  @ApiProperty({
+    description: 'Nombre del vendedor asignado al cliente',
+    example: 'María González',
+    type: String,
+    required: false,
+  })
   assignedSalesperson?: string;
+
+  @ApiProperty({
+    description: 'Indica si el cliente ha cerrado el trato',
+    example: false,
+    type: Boolean,
+    required: false,
+  })
   isClosed?: boolean;
+
+  @ApiProperty({
+    description: 'Vertical de industria del cliente',
+    enum: IndustryVertical,
+    example: IndustryVertical.ECOMMERCE_RETAIL,
+  })
   industry: IndustryVertical;
+
+  @ApiProperty({
+    description: 'Fuente del lead',
+    enum: LeadSource,
+    example: LeadSource.WEB_SEARCH,
+  })
   leadSource: LeadSource;
+
+  @ApiProperty({
+    description: 'Volumen de interacciones del cliente',
+    enum: InteractionVolume,
+    example: InteractionVolume.MEDIUM,
+  })
   interactionVolume: InteractionVolume;
+
+  @ApiProperty({
+    description: 'Principal punto de dolor del cliente',
+    enum: MainPainPoint,
+    example: MainPainPoint.EFFICIENCY_OVERLOAD,
+  })
   mainPainPoint: MainPainPoint;
+
+  @ApiProperty({
+    description: 'Nivel de madurez tecnológica del cliente',
+    enum: TechMaturity,
+    example: TechMaturity.APPOINTMENT_SYSTEM,
+  })
   techMaturity: TechMaturity;
+
+  @ApiProperty({
+    description: 'Nivel de urgencia del cliente',
+    enum: Urgency,
+    example: Urgency.HIGH,
+  })
   urgency: Urgency;
-  confidence: number; // 0-1 score de confianza de la IA
+
+  @ApiProperty({
+    description: 'Score de confianza de la clasificación de IA (0-1)',
+    example: 0.95,
+    type: Number,
+    minimum: 0,
+    maximum: 1,
+  })
+  confidence: number;
 }
 
 export interface ClassificationResult {

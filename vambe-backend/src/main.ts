@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,6 +15,27 @@ async function bootstrap() {
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     credentials: true,
   });
+
+  // Swagger configuration
+  const config = new DocumentBuilder()
+    .setTitle('VAMBE API')
+    .setDescription(
+      'API para procesamiento de archivos CSV y clasificación de clientes mediante IA',
+    )
+    .setVersion('1.0')
+    .addTag('Health', 'Endpoints de salud y estado de la aplicación')
+    .addTag(
+      'CSV Parser',
+      'Endpoints para procesamiento y validación de archivos CSV',
+    )
+    .addTag(
+      'AI Classification',
+      'Endpoints para clasificación de clientes y generación de recomendaciones 3S mediante IA',
+    )
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api-docs', app, document);
 
   await app.listen(process.env.PORT ?? 8000);
 }

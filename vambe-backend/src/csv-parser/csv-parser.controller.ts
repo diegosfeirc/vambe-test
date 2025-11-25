@@ -8,6 +8,13 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiConsumes,
+  ApiBody,
+  ApiResponse,
+} from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CsvParserService } from './csv-parser.service';
 import {
@@ -18,6 +25,7 @@ import {
 import { AiClassificationService } from '../ai-classification/ai-classification.service';
 import type { MulterFile } from './interfaces/multer-file.interface';
 
+@ApiTags('CSV Parser')
 @Controller('csv-parser')
 export class CsvParserController {
   private readonly logger = new Logger(CsvParserController.name);
@@ -30,6 +38,52 @@ export class CsvParserController {
   @Post('upload-and-classify')
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(FileInterceptor('file'))
+  @ApiOperation({
+    summary: 'Subir y clasificar archivo CSV',
+    description:
+      'Endpoint que permite subir un archivo CSV con información de clientes, lo valida, parsea y clasifica automáticamente mediante IA. El archivo debe contener columnas: nombre, correo, telefono, vendedorAsignado, fechaReunion, cerrado, y opcionalmente transcripcion.',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Archivo CSV con información de clientes',
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+          description: 'Archivo CSV con información de clientes',
+        },
+      },
+      required: ['file'],
+    },
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Archivo CSV procesado y clasificado exitosamente',
+    type: CsvParseAndClassifyResponseDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Error en la validación del archivo o en el procesamiento',
+    schema: {
+      type: 'object',
+      properties: {
+        statusCode: {
+          type: 'number',
+          example: 400,
+        },
+        message: {
+          type: 'string',
+          example: 'El archivo debe tener extensión .csv',
+        },
+        error: {
+          type: 'string',
+          example: 'Bad Request',
+        },
+      },
+    },
+  })
   async uploadAndClassify(
     @UploadedFile() file: MulterFile,
   ): Promise<CsvParseAndClassifyResponseDto> {
