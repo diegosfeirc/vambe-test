@@ -49,6 +49,7 @@ Para ejecutar la aplicación en modo producción localmente, sigue estos pasos:
 4. **Acceder a la aplicación**:
    - Frontend: http://localhost:3000
    - Backend: http://localhost:8000
+   - Documentación de la API: http://localhost:8000/api-docs
 
 ### Comandos Adicionales
 
@@ -148,12 +149,6 @@ La selección de visualizaciones está diseñada para maximizar el valor estrat�
 
 Cada visualización aporta información complementaria que, en conjunto, permite una visión 360° del pipeline de ventas y facilita la toma de decisiones informadas.
 
-### Stack Tecnológico
-
-**NestJS para el Backend**: Se eligió NestJS por su arquitectura modular basada en decoradores y su enfoque orientado a la escalabilidad. El framework proporciona una estructura clara y organizada que facilita el mantenimiento del código, especialmente importante para servicios que integran múltiples APIs externas (como Google Gemini). Además, NestJS ofrece validación robusta de datos nativa, manejo de errores estructurado y soporte completo para TypeScript, lo que garantiza type-safety en todo el backend.
-
-**Next.js para el Frontend**: Next.js fue seleccionado por su capacidad de renderizado del lado del servidor (SSR) y generación estática, optimizando el rendimiento de la aplicación. El framework facilita la creación de dashboards interactivos con React, ofreciendo routing automático, optimización de imágenes y code splitting sin configuración adicional. La integración nativa con TypeScript y su ecosistema de herramientas hacen que Next.js sea ideal para aplicaciones que requieren visualizaciones complejas y alta interactividad, como los dashboards de análisis de datos.
-
 ## Deployment
 
 ### Frontend - Vercel
@@ -183,6 +178,8 @@ Se eligió Render para el despliegue del backend debido a:
 > **Nota**: Al estar el backend completamente dockerizado, puede desplegarse de manera sencilla en cualquier otro servicio que soporte contenedores Docker, como Cloud Run de GCP, AWS ECS, Azure Container Instances, entre otros, sin necesidad de modificar el código.
 
 **API en producción**: [https://vambe-test-backend.onrender.com/](https://vambe-test-backend.onrender.com/)
+
+La documentación completa de la API está disponible en la ruta `/api-docs` del backend.
 
 La combinación de Vercel para el frontend y Render para el backend proporciona una solución de despliegue completa, simple y económica para la aplicación.
 
