@@ -103,17 +103,48 @@ Se eligieron 6 dimensiones de clasificación que proporcionan información estra
 
 La selección de visualizaciones está diseñada para maximizar el valor estratégico:
 
-- **Gráficos de Torta (Pie Charts)**: Muestran la distribución de leads en cada categoría, facilitando la identificación rápida de patrones y concentraciones. Para el equipo de ventas, estos gráficos permiten preparar pitches específicos por industria, adaptar estrategias de cierre según el perfil del cliente y priorizar esfuerzos en las categorías que representan mayor volumen o potencial. Por ejemplo, si la mayoría de leads provienen de "E-commerce / Retail", el equipo puede desarrollar un mensaje de ventas especializado para ese vertical, destacando casos de uso específicos y beneficios relevantes.
+- **Gráficos de Torta (Pie Charts)**:
+  - Muestran la distribución de leads en cada categoría, facilitando la identificación rápida de patrones y concentraciones
+  - Permiten preparar pitches específicos por industria
+  - Facilitan adaptar estrategias de cierre según el perfil del cliente
+  - Ayudan a priorizar esfuerzos en las categorías que representan mayor volumen o potencial
+  - Ejemplo: Si la mayoría de leads provienen de "E-commerce / Retail", el equipo puede desarrollar un mensaje de ventas especializado para ese vertical, destacando casos de uso específicos y beneficios relevantes
 
-- **Gráfico de Tendencia de Leads**: Visualiza la evolución temporal de leads por mes, permitiendo identificar estacionalidades y tendencias de crecimiento. El equipo de ventas puede utilizar esta información para planificar objetivos mensuales, anticipar períodos de alta demanda y ajustar estrategias de seguimiento. Si se identifica un patrón estacional, pueden prepararse con anticipación, aumentando la capacidad de respuesta y mejorando las tasas de conversión durante picos de actividad.
+- **Gráfico de Tendencia de Leads**:
+  - Visualiza la evolución temporal de leads por mes
+  - Permite identificar estacionalidades y tendencias de crecimiento
+  - Facilita planificar objetivos mensuales
+  - Ayuda a anticipar períodos de alta demanda
+  - Permite ajustar estrategias de seguimiento según patrones identificados
+  - Ejemplo: Si se identifica un patrón estacional, pueden prepararse con anticipación, aumentando la capacidad de respuesta y mejorando las tasas de conversión durante picos de actividad
 
-- **Gráfico de Leads por Vendedor**: Facilita la gestión de equipos de ventas, identificando desempeño individual y distribución de carga de trabajo. Este gráfico permite detectar desbalances en la asignación de leads, identificar oportunidades de coaching y reconocer mejores prácticas de los vendedores con mayor éxito. Si un vendedor tiene significativamente mejor tasa de cierre en ciertas categorías, se pueden compartir sus estrategias con el resto del equipo para mejorar el desempeño colectivo.
+- **Gráfico de Leads por Vendedor**:
+  - Facilita la gestión de equipos de ventas
+  - Identifica desempeño individual y distribución de carga de trabajo
+  - Permite detectar desbalances en la asignación de leads
+  - Identifica oportunidades de coaching
+  - Reconoce mejores prácticas de los vendedores con mayor éxito
+  - Ejemplo: Si un vendedor tiene significativamente mejor tasa de cierre en ciertas categorías, se pueden compartir sus estrategias con el resto del equipo para mejorar el desempeño colectivo
 
-- **Gráficos de Tasa de Cierre**: Analizan qué categorías tienen mayor probabilidad de cierre, proporcionando insights críticos para optimizar el proceso de ventas. El equipo de ventas utiliza esta información para priorizar tiempo y esfuerzo en leads con mayor probabilidad de conversión. Por ejemplo, si los leads con "Urgencia Alta" tienen una tasa de cierre del 60% versus 20% en "Urgencia Baja", el equipo puede enfocar sus recursos en leads urgentes y ajustar su estrategia de seguimiento para leads menos urgentes, optimizando así la eficiencia del proceso comercial.
+- **Gráficos de Tasa de Cierre**:
+  - Analizan qué categorías tienen mayor probabilidad de cierre
+  - Proporcionan insights críticos para optimizar el proceso de ventas
+  - Permiten priorizar tiempo y esfuerzo en leads con mayor probabilidad de conversión
+  - Ejemplo: Si los leads con "Urgencia Alta" tienen una tasa de cierre del 60% versus 20% en "Urgencia Baja", el equipo puede enfocar sus recursos en leads urgentes y ajustar su estrategia de seguimiento para leads menos urgentes, optimizando así la eficiencia del proceso comercial
 
-- **Recomendaciones 3S (Start, Stop, Spice Up)**: Generadas por IA, ofrecen recomendaciones estratégicas accionables basadas en los patrones identificados en los datos. Para el equipo de ventas, estas recomendaciones transforman datos en acciones concretas. Por ejemplo, pueden sugerir "empezar a enfocarse en leads de alto volumen" si estos tienen mejor tasa de cierre, "dejar de invertir tiempo en leads de baja urgencia sin seguimiento estructurado" si no están generando resultados, o "mejorar el pitch para clientes con madurez tecnológica avanzada" si se identifica una oportunidad de optimización. Estas recomendaciones ayudan al equipo a adaptar rápidamente sus estrategias basándose en evidencia real, mejorando continuamente el desempeño comercial.
+- **Recomendaciones 3S (Start, Stop, Spice Up)**:
+  - Generadas por IA, ofrecen recomendaciones estratégicas accionables basadas en los patrones identificados en los datos
+  - Transforman datos en acciones concretas para el equipo de ventas
+  - Ejemplos de recomendaciones:
+    - "Empezar a enfocarse en leads de alto volumen" si estos tienen mejor tasa de cierre
+    - "Dejar de invertir tiempo en leads de baja urgencia sin seguimiento estructurado" si no están generando resultados
+    - "Mejorar el pitch para clientes con madurez tecnológica avanzada" si se identifica una oportunidad de optimización
+  - Ayudan al equipo a adaptar rápidamente sus estrategias basándose en evidencia real, mejorando continuamente el desempeño comercial
 
-Todos los gráficos cuentan con funcionalidad de filtrado completo, permitiendo analizar elementos particulares y combinados para realizar análisis más profundos y específicos según las necesidades del equipo. Por ejemplo, el equipo de ventas puede filtrar por "Leads cerrados de industria E-commerce con alto volumen y urgencia alta" para entender mejor ese segmento específico y replicar estrategias exitosas en leads similares.
+**Funcionalidad de Filtrado**:
+- Todos los gráficos cuentan con funcionalidad de filtrado completo
+- Permiten analizar elementos particulares y combinados para realizar análisis más profundos y específicos
+- Ejemplo: El equipo de ventas puede filtrar por "Leads cerrados de industria E-commerce con alto volumen y urgencia alta" para entender mejor ese segmento específico y replicar estrategias exitosas en leads similares
 
 Cada visualización aporta información complementaria que, en conjunto, permite una visión 360° del pipeline de ventas y facilita la toma de decisiones informadas.
 
@@ -129,7 +160,7 @@ Cada visualización aporta información complementaria que, en conjunto, permite
 
 Se eligió Vercel para el despliegue del frontend debido a:
 
-- **Integración Nativa con Next.js**: Vercel está optimizado para aplicaciones Next.js, ofreciendo despliegues automáticos desde Git, optimización de imágenes, y edge functions sin configuración adicional.
+- **Integración Nativa con Next.js**: Vercel está optimizado para aplicaciones Next.js, ofreciendo despliegues automáticos desde Github, optimización de imágenes, y edge functions sin configuración adicional.
 
 - **Performance**: CDN global y optimizaciones automáticas que garantizan tiempos de carga rápidos en cualquier ubicación.
 
@@ -141,11 +172,13 @@ Se eligió Vercel para el despliegue del frontend debido a:
 
 Se eligió Render para el despliegue del backend debido a:
 
-- **Simplicidad**: Render ofrece una experiencia de despliegue extremadamente simple. Solo necesitas conectar tu repositorio Git y Render detecta automáticamente el Dockerfile, construyendo y desplegando la aplicación sin configuración compleja.
+- **Simplicidad**: Render ofrece una experiencia de despliegue extremadamente simple. Solo necesitaba conectar el repositorio y Render detecta automáticamente el Dockerfile, construyendo y desplegando la aplicación sin configuración compleja.
 
-- **Free Tier Generoso**: Render proporciona un tier gratuito que incluye servicios web con sleep automático, ideal para aplicaciones en desarrollo o con tráfico moderado. Esto permite probar y desplegar sin costos iniciales.
+- **Free Tier Generoso**: Render proporciona un tier gratuito que incluye servicios web con sleep automático, ideal para aplicaciones en desarrollo o con tráfico moderado, lo me permitió probar y desplegar sin costos iniciales.
 
-- **Integración Nativa con Docker**: Render tiene soporte nativo para Docker, lo que significa que puedes desplegar exactamente el mismo contenedor que ejecutas localmente, garantizando consistencia entre entornos. El proceso es tan simple como apuntar al Dockerfile y Render se encarga del resto.
+- **Integración Nativa con Docker**: Render tiene soporte nativo para Docker, lo que significa que podemos desplegar exactamente el mismo contenedor que ejecutamos localmente, garantizando consistencia entre entornos. El proceso es tan simple como apuntar al Dockerfile y Render se encarga del resto.
+
+> **Nota sobre Cold Start**: Render tiene un período de cold start cuando el servicio está inactivo. Esto significa que la primera subida de CSV después de un período de inactividad puede ser más lenta de lo normal. Sin embargo, una vez que el servicio está activo, las subidas posteriores de CSV son rápidas y normales.
 
 > **Nota**: Al estar el backend completamente dockerizado, puede desplegarse de manera sencilla en cualquier otro servicio que soporte contenedores Docker, como Cloud Run de GCP, AWS ECS, Azure Container Instances, entre otros, sin necesidad de modificar el código.
 
