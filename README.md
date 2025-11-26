@@ -21,12 +21,12 @@ Para ejecutar la aplicación en modo producción localmente, sigue estos pasos:
 ### Prerrequisitos
 
 - Docker y Docker Compose instalados
-- Make instalado (opcional, pero recomendado)
+- Make instalado
 - Archivo `.env` configurado en `vambe-backend/` con la variable `GEMINI_API_KEY`
 
 ### Pasos
 
-1. **Clonar el repositorio** (si aún no lo has hecho):
+1. **Clonar el repositorio**:
    ```bash
    git clone <repository-url>
    cd vambe-test
